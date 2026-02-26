@@ -4,20 +4,20 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class GeneralTree<E> {
-    private Node<E> raiz;
+    private NodeGeneral<E> raiz;
 
     public GeneralTree(E datoRaiz){
-        raiz = new Node<>(datoRaiz);
+        raiz = new NodeGeneral<>(datoRaiz);
     }
-    public Node<E> getRaiz(){
+    public NodeGeneral<E> getRaiz(){
         return raiz;
     }
 
     //INSERTAR
     public void insertar(E padre, E nuevoDato){
-        Node<E> nodoPadre = buscar(raiz, padre);
+        NodeGeneral<E> nodoPadre = buscar(raiz, padre);
         if(nodoPadre!=null){
-            nodoPadre.agregarHijo(new Node<>(nuevoDato));
+            nodoPadre.agregarHijo(new NodeGeneral<>(nuevoDato));
         }
         else {
             System.out.println("padre no encontrado");
@@ -25,7 +25,7 @@ public class GeneralTree<E> {
     }
 
     //busqueda recursiva
-    private Node<E> buscar(Node<E> actual, E dato){
+    private NodeGeneral<E> buscar(NodeGeneral<E> actual, E dato){
         if(actual == null){
             return null;
         }
@@ -33,8 +33,8 @@ public class GeneralTree<E> {
             return actual;
         }
 
-            for(Node<E> hijos: actual.getListaNodos()){
-            Node<E> resultadp = buscar(hijos, dato);
+            for(NodeGeneral<E> hijos: actual.getListaNodos()){
+            NodeGeneral<E> resultadp = buscar(hijos, dato);
             if(resultadp!=null){
                 return resultadp;
             }
@@ -43,41 +43,42 @@ public class GeneralTree<E> {
     }
 
     //recorrido dfs
-    public void dfsRe(Node<E> actual){
+    public void dfsRe(NodeGeneral<E> actual){
         if(actual==null){
             return;
         }
         System.out.println(actual.getDato());
-        for (Node<E> hijo : actual.getListaNodos()){
+        for (NodeGeneral<E> hijo : actual.getListaNodos()){
            dfsRe(hijo);
         }
     }
 
     //recorrido bfs
-    public void bfsRe(Node<E> actual){
-        Queue<Node<E>> cola = new LinkedList<>();
+    public void bfsRe(NodeGeneral<E> actual){
+        if(actual == null) return;
+        Queue<NodeGeneral<E>> cola = new LinkedList<>();
         cola.add(actual);
 
         while(!cola.isEmpty()){
-           Node<E> sacaste= cola.poll();
+           NodeGeneral<E> sacaste= cola.poll();
             System.out.println(sacaste.getDato());
-            for(Node<E> hijos : sacaste.getListaNodos()){
+            for(NodeGeneral<E> hijos : sacaste.getListaNodos()){
                 cola.add(hijos);
             }
         }
     }
 
     //yo probando la forma iterativa, le cambio el sentido porq si no saldria al revez
-    public void dfsW(Node<E> actual){
-        Stack<Node<E>> pila = new Stack<>();
+    public void dfsW(NodeGeneral<E> actual){
+        Stack<NodeGeneral<E>> pila = new Stack<>();
         pila.push(actual);
 
         while(!pila.isEmpty()){
-            Node<E> sacado = pila.pop();
+            NodeGeneral<E> sacado = pila.pop();
             System.out.println(sacado.getDato());
 
             Collections.reverse(sacado.getListaNodos());
-            for(Node<E> hijos : sacado.getListaNodos()){
+            for(NodeGeneral<E> hijos : sacado.getListaNodos()){
                 pila.push(hijos);
             }
         }

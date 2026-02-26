@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node<E> {
-    E dato;
-    List<Node<E>> listaNodos;
+public class NodeGeneral<E> {
+   private E dato;
+   private List<NodeGeneral<E>> listaNodos;
 
-    public Node(E dato){
+
+    public NodeGeneral(E dato){
         this.dato = dato;
         this.listaNodos = new ArrayList<>();
     }
@@ -18,14 +19,14 @@ public class Node<E> {
         this.dato = dato;
     }
 
-    public List<Node<E>> getListaNodos() {
+    public List<NodeGeneral<E>> getListaNodos() {
         return listaNodos;
     }
 
-    public void setListaNodos(List<Node<E>> listaNodos) {
+    public void setListaNodos(List<NodeGeneral<E>> listaNodos) {
         this.listaNodos = listaNodos;
     }
-    public void agregarHijo(Node<E> hijo) {
+    public void agregarHijo(NodeGeneral<E> hijo) {
         listaNodos.add(hijo);
     }
 }

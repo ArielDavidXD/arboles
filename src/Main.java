@@ -3,6 +3,16 @@ public class Main {
             GeneralTree ge = new GeneralTree<>("A");
             GeneralTree he = new GeneralTree<>("");
 
+            BinaryTree bi =new BinaryTree<>("A");
+
+            bi.insertar("A", "B");
+            bi.insertar("A", "C");
+            bi.insertar("A", "D");
+            bi.insertar("B", "P");
+
+
+
+            System.out.println("----------------------");
             ge.insertar("A", "B");
             ge.insertar("A", "C");
             ge.insertar("B", "D");
