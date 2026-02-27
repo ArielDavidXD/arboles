@@ -26,7 +26,7 @@ public class BinaryTree<E> {
         }
     }
 
-    private NodeBinary<E> buscar(NodeBinary<E> actual, E dato){
+    public NodeBinary<E> buscar(NodeBinary<E> actual, E dato){
         if(actual == null) return null;
 
         if(actual.getDato().equals(dato)) return actual;

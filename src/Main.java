@@ -1,23 +1,22 @@
 public class Main {
         public static void main(String[] args) {
-            GeneralTree ge = new GeneralTree<>("A");
-            GeneralTree he = new GeneralTree<>("");
 
-            BinaryTree bi =new BinaryTree<>("A");
 
-            bi.insertar("A", "B");
-            bi.insertar("A", "C");
-            bi.insertar("A", "D");
-            bi.insertar("B", "P");
+            ControllerBinary cont = new ControllerBinary<>("A");
+
+            cont.insertarEnBinario("A", "B");
+            cont.insertarEnBinario("A", "C");
+            cont.insertarEnBinario("A", "D");
+            cont.insertarEnBinario("B", "P");
 
             //no existe ese padre
-            bi.insertar("J", "L");
+            cont.insertarEnBinario("J", "L");
 
             //updatear nodo
-            bi.update("B", "F");
+            cont.updatearBinario("B", "F");
             //deletear nodo
-            bi.delete("F");
-            bi.preOrden();
+            cont.delete("H");
+            cont.mostrarBinarioPreOrden();
 
             System.out.println("----------------------");
             ge.insertar("A", "B");
