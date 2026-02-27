@@ -6,36 +6,36 @@ import java.util.Stack;
 public class GeneralTree<E> {
     private NodeGeneral<E> raiz;
 
-    public GeneralTree(E datoRaiz){
+    public GeneralTree(E datoRaiz) {
         raiz = new NodeGeneral<>(datoRaiz);
     }
-    public NodeGeneral<E> getRaiz(){
+
+    public NodeGeneral<E> getRaiz() {
         return raiz;
     }
 
     //INSERTAR
-    public void insertar(E padre, E nuevoDato){
+    public void insertar(E padre, E nuevoDato) {
         NodeGeneral<E> nodoPadre = buscar(raiz, padre);
-        if(nodoPadre!=null){
+        if (nodoPadre != null) {
             nodoPadre.agregarHijo(new NodeGeneral<>(nuevoDato));
-        }
-        else {
+        } else {
             System.out.println("padre no encontrado");
         }
     }
 
     //busqueda recursiva
-    private NodeGeneral<E> buscar(NodeGeneral<E> actual, E dato){
-        if(actual == null){
+    private NodeGeneral<E> buscar(NodeGeneral<E> actual, E dato) {
+        if (actual == null) {
             return null;
         }
-        if(actual.getDato().equals(dato)){
+        if (actual.getDato().equals(dato)) {
             return actual;
         }
 
-            for(NodeGeneral<E> hijos: actual.getListaNodos()){
+        for (NodeGeneral<E> hijos : actual.getListaNodos()) {
             NodeGeneral<E> resultadp = buscar(hijos, dato);
-            if(resultadp!=null){
+            if (resultadp != null) {
                 return resultadp;
             }
         }
@@ -43,45 +43,82 @@ public class GeneralTree<E> {
     }
 
     //recorrido dfs
-    public void dfsRe(NodeGeneral<E> actual){
-        if(actual==null){
+    public void dfsRe(NodeGeneral<E> actual) {
+        if (actual == null) {
             return;
         }
         System.out.println(actual.getDato());
-        for (NodeGeneral<E> hijo : actual.getListaNodos()){
-           dfsRe(hijo);
+        for (NodeGeneral<E> hijo : actual.getListaNodos()) {
+            dfsRe(hijo);
         }
     }
 
+    public NodeGeneral<E> get(E dato) {
+        return buscar(raiz, dato);
+    }
+
     //recorrido bfs
-    public void bfsRe(NodeGeneral<E> actual){
-        if(actual == null) return;
+    public void bfsRe(NodeGeneral<E> actual) {
+        if (actual == null) return;
         Queue<NodeGeneral<E>> cola = new LinkedList<>();
         cola.add(actual);
 
-        while(!cola.isEmpty()){
-           NodeGeneral<E> sacaste= cola.poll();
+        while (!cola.isEmpty()) {
+            NodeGeneral<E> sacaste = cola.poll();
             System.out.println(sacaste.getDato());
-            for(NodeGeneral<E> hijos : sacaste.getListaNodos()){
+            for (NodeGeneral<E> hijos : sacaste.getListaNodos()) {
                 cola.add(hijos);
             }
         }
     }
 
     //yo probando la forma iterativa, le cambio el sentido porq si no saldria al revez
-    public void dfsW(NodeGeneral<E> actual){
+    public void dfsW(NodeGeneral<E> actual) {
         Stack<NodeGeneral<E>> pila = new Stack<>();
         pila.push(actual);
 
-        while(!pila.isEmpty()){
+        while (!pila.isEmpty()) {
             NodeGeneral<E> sacado = pila.pop();
             System.out.println(sacado.getDato());
 
             Collections.reverse(sacado.getListaNodos());
-            for(NodeGeneral<E> hijos : sacado.getListaNodos()){
+            for (NodeGeneral<E> hijos : sacado.getListaNodos()) {
                 pila.push(hijos);
             }
         }
+    }
+
+    public boolean update(E datoViejo, E datoNuevo) {
+        NodeGeneral<E> nodo = get(datoViejo);
+        if (nodo != null) {
+            nodo.setDato(datoNuevo);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean delete(E dato) {
+        if (raiz == null)
+            return false; // caso especial: eliminar raíz
+        if (raiz.getDato().equals(dato)) {
+            raiz = null;
+            return true;
+        }
+        return eliminarRecursivo(raiz, dato);
+    }
+
+    private boolean eliminarRecursivo(NodeGeneral<E> actual, E dato) {
+        if (actual == null) return false;
+        for (int i = 0; i < actual.getListaNodos().size(); i++) {
+            NodeGeneral<E> hijo = actual.getListaNodos().get(i);
+            if (hijo.getDato().equals(dato)) {
+                actual.getListaNodos().remove(i);
+                return true;
+            } else {
+                if (eliminarRecursivo(hijo, dato)) return true;
+            }
+        }
+        return false;
     }
 
 }

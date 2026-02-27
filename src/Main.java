@@ -10,7 +10,14 @@ public class Main {
             bi.insertar("A", "D");
             bi.insertar("B", "P");
 
+            //no existe ese padre
+            bi.insertar("J", "L");
 
+            //updatear nodo
+            bi.update("B", "F");
+            //deletear nodo
+            bi.delete("F");
+            bi.preOrden();
 
             System.out.println("----------------------");
             ge.insertar("A", "B");
